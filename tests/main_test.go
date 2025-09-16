@@ -1,4 +1,4 @@
-package go_digest
+package digest
 
 import (
 	"math"
