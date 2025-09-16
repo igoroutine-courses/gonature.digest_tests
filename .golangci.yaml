@@ -94,6 +94,7 @@ linters:
     - tparallel
     - usestdlibvars
     - nolintlint
+    - depguard
 
 issues:
   exclude-use-default: false
