@@ -39,6 +39,19 @@ linters-settings:
       - '4'
   exhaustive:
     default-signifies-exhaustive: true
+  depguard:
+    rules:
+      main:
+        list-mode: original
+        files:
+          - $all
+        allow:
+          - bytes
+          - math
+          - math/cmplx
+          - strings
+          - unsafe
+          - math/rand/v2
 
 linters:
   disable-all: true
