@@ -80,6 +80,12 @@ func DeleteByIndex(s []int, idx int) []int {
 
 `go install github.com/go-task/task/v3/cmd/task@latest`
 
+Перед выполнением задания не забудьте выполнить:
+
+```bash 
+task update
+```
+
 Запустить линтер:
 ```bash 
 task lint
@@ -90,12 +96,12 @@ task lint
 task test
 ``` 
 
-Проверить обновление тестов
+Обновить файлы задания
 ```bash
 task update
 ```
 
-Принудительно обновить тесты
+Принудительно обновить файлы задания
 ```bash
 task force-update
 ```
