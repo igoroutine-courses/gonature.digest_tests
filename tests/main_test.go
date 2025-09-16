@@ -542,7 +542,7 @@ func TestSort(t *testing.T) {
 	}
 }
 
-func erformance(t *testing.T) {
+func TestSortPerformance(t *testing.T) {
 	testCases := []struct {
 		name      string
 		generator func(int) []int
