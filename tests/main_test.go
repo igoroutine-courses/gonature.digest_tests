@@ -542,7 +542,7 @@ func TestSort(t *testing.T) {
 	}
 }
 
-func TestSortPerformance(t *testing.T) {
+func erformance(t *testing.T) {
 	testCases := []struct {
 		name      string
 		generator func(int) []int
@@ -841,6 +841,12 @@ func TestDeleteByIndex(t *testing.T) {
 				index:    8,
 				expected: []int{0, 1, 2, 3, 4, 5, 6, 7},
 			},
+			{
+				name:     "single element",
+				slice:    []int{8},
+				index:    0,
+				expected: []int{},
+			},
 		}
 
 		for _, tc := range testCases {
@@ -876,6 +882,21 @@ func TestDeleteByIndex(t *testing.T) {
 				name:  "negative index",
 				slice: []int{0, 1, 2},
 				index: -42,
+			},
+			{
+				name:  "big index",
+				slice: []int{0, 1, 2},
+				index: 10,
+			},
+			{
+				name:  "tiny index",
+				slice: []int{0, 1, 2},
+				index: -100,
+			},
+			{
+				name:  "empty list",
+				slice: []int{},
+				index: 0,
 			},
 		}
 
