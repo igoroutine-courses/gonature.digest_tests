@@ -106,5 +106,5 @@ task update
 task force-update
 ```
 
-Скрипты работают на Windows, однаео при разработке на этой операционной системе
+Скрипты работают на Windows, однако при разработке на этой операционной системе
 рекомендуется использовать [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
