@@ -930,4 +930,24 @@ func TestDeleteByIndex(t *testing.T) {
 
 		require.Equal(t, temp, s)
 	})
+
+	t.Run("immutability check with last index", func(t *testing.T) {
+		t.Parallel()
+
+		s, idx := []int{0, 1, 2}, 2
+
+		temp := make([]int, len(s))
+		copy(temp, s)
+
+		got := DeleteByIndex(s, idx)
+		want := []int{0, 1}
+
+		require.Equal(t, want, got)
+
+		for i := 0; i < len(got); i++ {
+			got[i] = 99
+		}
+
+		require.Equal(t, temp, s)
+	})
 }
