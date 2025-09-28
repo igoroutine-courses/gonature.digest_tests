@@ -19,7 +19,7 @@ func ShiftPointer(pointer **int, shift int) {
 	panic("not implemented")
 }
 
-// IsComplexEqual compares two complex numbers and determines if they are equal.
+// IsComplexEqual compares two complex numbers and determines if they belong to the same eps-neighborhood.
 func IsComplexEqual(a, b complex128) bool {
 	panic("not implemented")
 }
