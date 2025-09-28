@@ -6,6 +6,7 @@ import (
 	"math/rand/v2"
 	"slices"
 	"strings"
+	"sync"
 	"testing"
 	"unsafe"
 
@@ -636,6 +637,30 @@ func TestSortPerformance(t *testing.T) {
 			require.LessOrEqual(t, float64(studentSort.NsPerOp())/float64(goSort.NsPerOp()), 100.)
 		})
 	}
+}
+
+func TestSortParallel(t *testing.T) {
+	t.Parallel()
+
+	const size = 100
+
+	wg := new(sync.WaitGroup)
+	for range 1000 {
+		wg.Go(func() {
+			s := make([]int, size)
+			for i := range s {
+				s[i] = rand.N[int](10e9)
+			}
+
+			expected := slices.Clone(s)
+			slices.Sort(expected)
+
+			Sort(s)
+			require.Equal(t, expected, s)
+		})
+	}
+
+	wg.Wait()
 }
 
 func TestReverseSliceOne(t *testing.T) {
