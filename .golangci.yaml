@@ -46,12 +46,10 @@ linters-settings:
         files:
           - $all
         allow:
-          - bytes
-          - math
           - math/cmplx
+          - math/rand/v2
           - strings
           - unsafe
-          - math/rand/v2
 
 linters:
   disable-all: true
