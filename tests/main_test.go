@@ -731,14 +731,40 @@ func TestReverseSliceTwo(t *testing.T) {
 				expected: []int{},
 			},
 			{
-				name:     "odd size",
+				name:     "odd length ascending",
 				slice:    []int{1, 2, 3, 4, 5},
 				expected: []int{5, 4, 3, 2, 1},
 			},
 			{
-				name:     "even size",
+				name:     "even length ascending",
 				slice:    []int{1, 2, 3, 4},
 				expected: []int{4, 3, 2, 1},
+			},
+			{
+				name:     "odd length descending",
+				slice:    []int{9, 7, 5, 3, 1},
+				expected: []int{1, 3, 5, 7, 9},
+			},
+			{
+				name:     "even length descending",
+				slice:    []int{9, 7, 5, 3},
+				expected: []int{3, 5, 7, 9},
+			},
+			{
+				name:     "with duplicates",
+				slice:    []int{1, 2, 2, 3},
+				expected: []int{3, 2, 2, 1},
+			},
+			{
+				name: "random order",
+				slice: []int{
+					10, -3, 7, 7, 0, 15, 2, 9, -1, 8,
+					5, 12, 4, 11, 6, 3, 14, 1, 13, -2,
+				},
+				expected: []int{
+					-2, 13, 1, 14, 3, 6, 11, 4, 12, 5,
+					8, -1, 9, 2, 15, 0, 7, 7, -3, 10,
+				},
 			},
 		}
 
