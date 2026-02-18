@@ -229,6 +229,18 @@ func TestGetCharByIndex(t *testing.T) {
 	}
 }
 
+func TestGetCharByIndexAll(t *testing.T) {
+	t.Parallel()
+	s := "e\u0301👨‍👩‍👧‍👦"
+	runes := []rune(s)
+
+	for i := 0; i < len(runes); i++ {
+		require.Equal(t, runes[i], GetCharByIndex(s, i))
+	}
+
+	require.Panics(t, func() { GetCharByIndex(s, len(runes)) })
+}
+
 func TestShiftPointer(t *testing.T) {
 	t.Parallel()
 
