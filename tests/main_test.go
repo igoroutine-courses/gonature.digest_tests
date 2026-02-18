@@ -191,6 +191,11 @@ func TestCharByIndexUnreachable(t *testing.T) {
 			inputString: "椅子",
 			index:       -42,
 		},
+		{
+			name:        "index out of bounds",
+			inputString: "椅1",
+			index:       3,
+		},
 	}
 
 	for _, tc := range testCases {
