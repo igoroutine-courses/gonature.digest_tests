@@ -135,24 +135,40 @@ func TestGetStringBySliceOfIndexes(t *testing.T) {
 	}
 }
 
-func TestGetStringBySliceOfIndexes_Performance(t *testing.T) {
-	const n = 100_000
+func TestGetStringBySliceOfIndexesPerformance(t *testing.T) {
+ const n = 100_000
 
-	bench := testing.Benchmark(func(b *testing.B) {
-		b.StopTimer()
+ solution := testing.Benchmark(func(b *testing.B) {
+  str := strings.Repeat("a", n)
+  indexes := make([]int, n)
+  for i := 0; i < n; i++ {
+   indexes[i] = n - 1
+  }
 
-		str := strings.Repeat("a", n)
-		indexes := make([]int, n)
-		for i := 0; i < n; i++ {
-			indexes[i] = n - 1
-		}
+  b.ResetTimer()
 
-		b.StartTimer()
+  for b.Loop() {
+   GetStringBySliceOfIndexes(str, indexes)
+  }
+ })
 
-		GetStringBySliceOfIndexes(str, indexes)
-	})
+ emulator := testing.Benchmark(func(b *testing.B) {
+  str := strings.Repeat("a", n)
+  b.ResetTimer()
 
-	require.LessOrEqual(t, bench.NsPerOp(), time.Second.Nanoseconds())
+  var keep []rune
+
+  for b.Loop() {
+   runes := []rune(str)
+
+   keep = runes
+   _ = keep
+
+   GetCharByIndex(str, n-1)
+  }
+ })
+
+ require.LessOrEqual(t, float64(solution.NsPerOp())/float64(emulator.NsPerOp()), 10.)
 }
 
 func TestCharByIndexCopy(t *testing.T) {
