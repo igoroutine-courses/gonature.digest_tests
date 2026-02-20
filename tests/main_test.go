@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 	"unsafe"
 
 	"github.com/stretchr/testify/require"
@@ -132,6 +133,26 @@ func TestGetStringBySliceOfIndexes(t *testing.T) {
 			require.Equal(t, tc.expectedString, actual)
 		})
 	}
+}
+
+func TestGetStringBySliceOfIndexes_Performance(t *testing.T) {
+	const n = 100_000
+
+	bench := testing.Benchmark(func(b *testing.B) {
+		b.StopTimer()
+
+		str := strings.Repeat("a", n)
+		indexes := make([]int, n)
+		for i := 0; i < n; i++ {
+			indexes[i] = n - 1
+		}
+
+		b.StartTimer()
+
+		GetStringBySliceOfIndexes(str, indexes)
+	})
+
+	require.LessOrEqual(t, bench.NsPerOp(), time.Second.Nanoseconds())
 }
 
 func TestCharByIndexCopy(t *testing.T) {
