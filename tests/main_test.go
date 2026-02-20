@@ -145,8 +145,6 @@ func TestGetStringBySliceOfIndexesPerformance(t *testing.T) {
    indexes[i] = n - 1
   }
 
-  b.ResetTimer()
-
   for b.Loop() {
    GetStringBySliceOfIndexes(str, indexes)
   }
