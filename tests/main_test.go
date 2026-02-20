@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 	"unsafe"
 
 	"github.com/stretchr/testify/require"
@@ -134,6 +135,40 @@ func TestGetStringBySliceOfIndexes(t *testing.T) {
 	}
 }
 
+func TestGetStringBySliceOfIndexesPerformance(t *testing.T) {
+ const n = 100_000
+
+ solution := testing.Benchmark(func(b *testing.B) {
+  str := strings.Repeat("a", n)
+  indexes := make([]int, n)
+  for i := 0; i < n; i++ {
+   indexes[i] = n - 1
+  }
+
+  for b.Loop() {
+   GetStringBySliceOfIndexes(str, indexes)
+  }
+ })
+
+ emulator := testing.Benchmark(func(b *testing.B) {
+  str := strings.Repeat("a", n)
+  b.ResetTimer()
+
+  var keep []rune
+
+  for b.Loop() {
+   runes := []rune(str)
+
+   keep = runes
+   _ = keep
+
+   GetCharByIndex(str, n-1)
+  }
+ })
+
+ require.LessOrEqual(t, float64(solution.NsPerOp())/float64(emulator.NsPerOp()), 10.)
+}
+
 func TestCharByIndexCopy(t *testing.T) {
 	result := testing.Benchmark(func(b *testing.B) {
 		s := strings.Repeat("🙃", 10_000)
@@ -232,6 +267,18 @@ func TestGetCharByIndex(t *testing.T) {
 			require.Equal(t, tc.expected, actual)
 		})
 	}
+}
+
+func TestGetCharByIndexAll(t *testing.T) {
+	t.Parallel()
+	s := "e\u0301👨‍👩‍👧‍👦"
+	runes := []rune(s)
+
+	for i := 0; i < len(runes); i++ {
+		require.Equal(t, runes[i], GetCharByIndex(s, i))
+	}
+
+	require.Panics(t, func() { GetCharByIndex(s, len(runes)) })
 }
 
 func TestShiftPointer(t *testing.T) {
