@@ -8,7 +8,6 @@ import (
 	"strings"
 	"sync"
 	"testing"
-	"time"
 	"unsafe"
 
 	"github.com/stretchr/testify/require"
