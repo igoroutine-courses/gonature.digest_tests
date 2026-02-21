@@ -460,6 +460,18 @@ func TestIsComplexEqual(t *testing.T) {
 			b:        complex(-42, math.Inf(1)),
 			expected: false,
 		},
+		{
+			name:     "+inf +inf real equal with precision",
+			a:        complex(math.Inf(1), 1),
+			b:        complex(math.Inf(1), 1.000000001),
+			expected: true,
+		},
+		{
+			name:     "+inf +inf imag equal with precision",
+			a:        complex(1, math.Inf(1)),
+			b:        complex(1.000000001, math.Inf(1)),
+			expected: true,
+		},
 	}
 
 	for _, tc := range testCases {
