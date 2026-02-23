@@ -460,6 +460,12 @@ func TestIsComplexEqual(t *testing.T) {
 			b:        complex(-42, math.Inf(1)),
 			expected: false,
 		},
+		{
+			name:     "use L_2, not L_inf metric",
+			a:        complex(0, 0),
+			b:        complex(0.9e-6, 0.9e-6),
+			expected: false,
+		},
 	}
 
 	for _, tc := range testCases {
