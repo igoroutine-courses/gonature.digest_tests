@@ -92,6 +92,12 @@ func TestGetStringBySliceOfIndexes(t *testing.T) {
 		expectedString string
 	}{
 		{
+			name:           "empty indexes",
+			inputString:    "abcdef",
+			indexes:        []int{},
+			expectedString: "",
+		},
+		{
 			name:           "simple get",
 			inputString:    "abcdef",
 			indexes:        []int{1, 3, 5},
