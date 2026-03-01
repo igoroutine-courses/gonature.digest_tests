@@ -301,6 +301,20 @@ func TestShiftPointer(t *testing.T) {
 			ShiftPointer(nil, 0)
 		})
 	})
+
+	t.Run("negative shift", func(t *testing.T) {
+		t.Parallel()
+
+		a := []int{1, 2, 3}
+		size := int(unsafe.Sizeof(a[0]))
+
+		pointer := unsafe.SliceData(a)
+		ShiftPointer(&pointer, size*2)
+		require.Equal(t, 3, *pointer)
+
+		ShiftPointer(&pointer, -size)
+		require.Equal(t, 2, *pointer)
+	})
 }
 
 func TestSwapPointers(t *testing.T) {
